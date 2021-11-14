@@ -38,3 +38,117 @@ This package requires some setup before it can be used correctly on Android. Mak
 Open **Player Settings** (Edit -> Project Settings -> Player). Select *Android Settings* then select *Publishing Settings*. Check both **Custom Main Gradle Template** and **Custom Gradle Properties Template**
 
 ![Player Settngs for Android](.github~/tut_2.jpg)
+
+#### Step 2
+
+Open the file `Assets/Plugins/Android/mainTemplate.gradle` by a text editor. Add the following line to the **dependencies** section:
+
+<code>
+
+    implementation 'com.zarinpal:payment-provider:0.5.2'
+</code>
+  
+    
+
+**(Optional)** If your project and business is trusted to ZarinPal, SDK is able to provide Mobile Payment Gateway on your App so you can add the MPG dependency:
+<code>
+
+    implementation 'com.zarinpal:mpg:0.5.2'
+</code>
+
+**Note.** You can change the version of the ZarinPal SDK inside the dependencies you just added. At the time of writing this document the latest version is `0.5.2`. You can check for newer versons here: https://github.com/ZarinPal/Android-SDK/releases
+  
+
+
+#### Step 3
+
+Open the file `Assets/Plugins/Android/gradleTemplate.properties` by a text editor. Add the following lines to it if not already present:
+
+<code>
+    
+    android.useAndroidX=true
+    android.enableJetifier=true
+</code>
+
+#### Step 4
+
+Set Minimum Android API Level to `Android 5.0 (API Level 21)`.
+
+You can find this setting inside Android Player Settings (which we visited in Step-1) and in **Other Settings**.
+
+![](.github~/tut_3.jpg)
+
+#### Step 5 (Optional)
+
+If your eligible to have payment process through **MPG** and willing to use **MPG**, add `usesCleartextTraffic` to application tag in your `Assets/Plugins/Android/AndroidManifest.xml` :
+
+<code>
+
+    <application
+            android:name="..."
+            android:usesCleartextTraffic="true"
+            ....
+            \>
+</code>
+
+  
+
+## Usage
+
+To use the ZarinPal API inside your scripts add a using directive at the top of your script:
+<code>
+    
+    using Zarinpal;
+</code>
+
+**Hint.** If `Zarinpal` is not recognized you may have to add `ZarinPalAssembly` to your Scripts Assembly Definition.
+
+### Initialization
+
+You have to call `ZarinpalIAB.Init()` at first before calling any other method on `ZarinpalIAB`.
+Example:
+<code>
+
+    void Start()
+    {
+        ZarinpalIAB.Init(showInvoice: true);
+    }
+</code>
+
+### Make Purchase
+
+You can use following three static methods to make purchase:
+<code>
+
+    ZarinpalIAB.PurchaseBySKU(string SkuID)
+
+    ZarinpalIAB.PurchaseByPaymentRequest(string merchantId, long amountInToman, string callbackURL, string description,string mobileNumber = null, string email = null)
+
+    ZarinpalIAB.PurchaseByAuthority(string Authority)
+</code>
+
+### Query Purchased Sku(s)
+
+You can use following three static methods to query purchased sku(s):
+<code>
+
+    ZarinpalIAB.QueryPurchasedSkusByMobile(string merchantId, string mobileNumber,string[] skuList)
+
+    ZarinpalIAB.QueryPurchasedSkusByEmail(string merchantId, string email, string[] skuList)
+
+    ZarinpalIAB.QueryPurchasedSkusCardPan(string merchantId, string cardPan, string[] skuList)
+</code>
+
+
+### Events
+
+You can subscribe to the following events to get notified from purchase results and query results.
+
+<code>
+    
+    ZarinpalIAB.OnPurchase
+
+    ZarinpalIAB.OnQuery
+
+    ZarinpalIAB.OnQueryError
+</code>
