@@ -1,0 +1,7 @@
+{
+    "name":"com.zarinpal.iab",
+    "version":"0.1.0",
+    "description":"This package allows you to make purchases through ZarinPal IAB Interface",
+    "displayName":"ZarrinPal IAB (in-app billing)",
+    "unity":"2019.3"
+}
