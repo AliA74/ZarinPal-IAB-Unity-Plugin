@@ -13,11 +13,11 @@ ZarinPal in-app purchases are the simplest solution to selling digital products 
 
 ## Installation
 
-##### Step1
+#### Step1
 
 You can install package either directly from Unity's Package Manager by git Url or by downloading this repo and Putting it under Packages folder of your project.
 
-** By Git Url **
+**By Git Url**
 
 Open *Package Manager* ( Window -> Package Manager ). In Package Manager window click on the top-left button with + icon, choose *add package from git URL...* , enter or copy the following link ( `https://github.com/AliA74/ZarinPal-IAB-Unity-Plugin.git` )
 
