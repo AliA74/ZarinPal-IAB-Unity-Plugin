@@ -13,8 +13,6 @@ ZarinPal in-app purchases are the simplest solution to selling digital products 
 
 ## Installation
 
-#### Step1
-
 You can install package either directly from Unity's Package Manager by git Url or by downloading this repo and Putting it under Packages folder of your project.
 
 **By Git Url**
@@ -22,3 +20,21 @@ You can install package either directly from Unity's Package Manager by git Url 
 Open *Package Manager* ( Window -> Package Manager ). In Package Manager window click on the top-left button with + icon, choose *add package from git URL...* , enter or copy the following link ( `https://github.com/AliA74/ZarinPal-IAB-Unity-Plugin.git` )
 
 ![Adding package in Package Manager using Git URL](.github~/tut_1.jpg "Adding package in Package Manager using Git URL")
+
+**Embedding in the project**
+
+If you don't want to use the previous method for installing the package, You can do the following:
+
+1. create a folder titled `com.zarinpal.iab` under Packages folder inside the root folder of your project.
+2. clone/download this repository and put all the content inside the folder you created at previous step (`com.zarinpal.iab`)
+
+
+## Setup
+
+This package requires some setup before it can be used correctly on Android. Make sure active build target is Android in Unity before continuing.
+
+#### Step 1
+
+Open **Player Settings** (Edit -> Project Settings -> Player). Select *Android Settings* then select *Publishing Settings*. Check both **Custom Main Gradle Template** and **Custom Gradle Properties Template**
+
+![Player Settngs for Android](.github~/tut_2.jpg)
