@@ -5,6 +5,17 @@ using UnityEngine;
 namespace Zarinpal
 {
 
+    /// <summary>
+    /// Android Night Mode Types, <see href="https://developer.android.com/reference/androidx/appcompat/app/AppCompatDelegate#MODE_NIGHT_FOLLOW_SYSTEM" >See More</a>
+    /// </summary>
+    public enum AndroidNightMode:int
+    {
+        MODE_NIGHT_FOLLOW_SYSTEM = -1,
+        MODE_NIGHT_AUTO_BATTERY = 0x00000003,
+        MODE_NIGHT_NO = 1,
+        MODE_NIGHT_YES = 2
+    }
+
     public static class ZarinpalIAB
     {
 
@@ -33,7 +44,7 @@ namespace Zarinpal
             Initialized = false;
         }
 
-        public static void Init(bool showInvoice)
+        public static void Init(bool showInvoice, AndroidNightMode nightMode = AndroidNightMode.MODE_NIGHT_FOLLOW_SYSTEM, bool enableDebugLogs = false)
         {
             if(Initialized)
                 return;
@@ -45,13 +56,13 @@ namespace Zarinpal
 
             pluginClass = new AndroidJavaClass("com.zarrinpal.unityiab.ZarinPalBridge");
 
-            pluginClass.CallStatic("Init", unityActivity, showInvoice, false);
+            pluginClass.CallStatic("Init", unityActivity, showInvoice, (int)nightMode);
 
 #endif
 
             GameObject go = new GameObject("ZarinListener");
             var listener = go.AddComponent<ZarinListener>();
-            listener.Init(OnPurchaseCb,OnQueryCb,OnQueryErrorCb);
+            listener.Init(OnPurchaseCb,OnQueryCb,OnQueryErrorCb,enableDebugLogs);
 
             //preserve object through scene changes
             GameObject.DontDestroyOnLoad(go);
